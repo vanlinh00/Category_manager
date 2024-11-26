@@ -1,15 +1,36 @@
 #spring.application.name=CategoryManagement
 
+server:
+  port: 8082
+
 spring:
   jackson:
     property-naming-strategy: SNAKE_CASE
+
   datasource:
-    url: jdbc:postgresql://172.20.0.70:5432/IndexManagement
+    url:  jdbc:postgresql://localhost:5432/categorymanagement
     hikari:
-      username: sa
-      password: Abc@123456789
-      schema: testcatogy
+      username: postgres
+      password: 123456
+      schema: management
     driver-class-name: org.postgresql.Driver
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: category-group
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      auto-offset-reset: earliest
+
+
+#  kafka:
+#    bootstrap-servers: localhost:9092  # Địa chỉ Kafka broker
+#    consumer:
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#    properties:
+#      spring.json.trusted.packages: "*"  # Cho phép deserialization cho tất cả các packages
 
   jpa:
     hibernate:
